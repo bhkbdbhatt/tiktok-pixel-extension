@@ -1,0 +1,16 @@
+{
+    "name": "com.yourcompany.tiktok-pixel",
+    "version": "1.0.0",
+    "description": "Adobe Launch Extension for TikTok Pixel & Events API",
+    "main": "src/lib/actions/loadPixel.js",
+    "scripts": {
+        "test": "jest",
+        "build": "aext build",
+        "package": "aext package",
+        "sandbox": "reactor-sandbox"
+    },
+    "devDependencies": {
+        "@adobe/reactor-sandbox": "^14.0.0",
+        "jest": "^30.5.2"
+    }
+}

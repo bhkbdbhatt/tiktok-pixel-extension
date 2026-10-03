@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Track Custom Event</title>
+    <!-- Adobe Launch Extension Bridge Communication Script -->
+    <script src="https://assets.adobedtm.com/extensions/v7/bridge.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            margin: 16px;
+            color: #2c2c2c;
+        }
+
+        .field-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .input-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            max-width: 360px;
+            padding: 6px 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        button.data-element-picker {
+            padding: 6px 12px;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        button.data-element-picker:hover {
+            background-color: #e8e8e8;
+        }
+
+        .description {
+            font-size: 11px;
+            color: #6e6e6e;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="actionForm">
+        <div class="field-group">
+            <label for="customEventName">Custom Event Name *</label>
+            <div class="input-row">
+                <input type="text" id="customEventName" placeholder="e.g., DownloadWhitepaper" required />
+                <button type="button" class="data-element-picker" onclick="openPicker('customEventName')">Data
+                    Element</button>
+            </div>
+            <div class="description">Enter the name of the custom event to send to TikTok.</div>
+        </div>
+    </form>
+
+    <script>
+        function openPicker(fieldId) {
+            window.extensionBridge.openDataElementSelector(function (dataElement) {
+                var input = document.getElementById(fieldId);
+                input.value += dataElement;
+            });
+        }
+
+        window.extensionBridge.register({
+            init: function (info) {
+                if (info.settings && info.settings.customEventName) {
+                    document.getElementById('customEventName').value = info.settings.customEventName;
+                }
+            },
+            getSettings: function () {
+                return {
+                    customEventName: document.getElementById('customEventName').value.trim()
+                };
+            },
+            validate: function () {
+                var value = document.getElementById('customEventName').value.trim();
+                return value.length > 0;
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+{
+    "name": "com.yourcompany.tiktok-pixel",
+    "displayName": "TikTok Pixel & Events API",
+    "version": "1.0.0",
+    "platform": "web",
+    "description": "Track TikTok Pixel standard & custom events and send server-side events via the TikTok Events API.",
+    "iconPath": "resources/icon.svg",
+    "configuration": {
+        "viewPath": "views/settings.html"
+    },
+    "actions": [
+        {
+            "id": "loadPixel",
+            "displayName": "Load TikTok Pixel",
+            "libPath": "src/lib/actions/loadPixel.js"
+        },
+        {
+            "id": "trackEvent",
+            "displayName": "Track Standard Event",
+            "libPath": "src/lib/actions/trackEvent.js",
+            "viewPath": "views/actions/trackEvent.html"
+        },
+        {
+            "id": "trackCustomEvent",
+            "displayName": "Track Custom Event",
+            "libPath": "src/lib/actions/trackCustomEvent.js",
+            "viewPath": "views/actions/trackCustomEvent.html"
+        },
+        {
+            "id": "identify",
+            "displayName": "Identify User",
+            "libPath": "src/lib/actions/identify.js"
+        },
+        {
+            "id": "trackPageViewSPA",
+            "displayName": "Track PageView (SPA)",
+            "libPath": "src/lib/actions/trackPageViewSPA.js"
+        }
+    ],
+    "dataElements": [
+        {
+            "id": "eventId",
+            "displayName": "Event ID",
+            "libPath": "src/lib/dataElements/eventId.js"
+        },
+        {
+            "id": "value",
+            "displayName": "Value",
+            "libPath": "src/lib/dataElements/value.js"
+        },
+        {
+            "id": "currency",
+            "displayName": "Currency",
+            "libPath": "src/lib/dataElements/currency.js"
+        },
+        {
+            "id": "contentId",
+            "displayName": "Content ID",
+            "libPath": "src/lib/dataElements/contentId.js"
+        },
+        {
+            "id": "contentName",
+            "displayName": "Content Name",
+            "libPath": "src/lib/dataElements/contentName.js"
+        },
+        {
+            "id": "contentType",
+            "displayName": "Content Type",
+            "libPath": "src/lib/dataElements/contentType.js"
+        },
+        {
+            "id": "contentIds",
+            "displayName": "Content IDs",
+            "libPath": "src/lib/dataElements/contentIds.js"
+        },
+        {
+            "id": "query",
+            "displayName": "Query",
+            "libPath": "src/lib/dataElements/query.js"
+        },
+        {
+            "id": "email",
+            "displayName": "Email",
+            "libPath": "src/lib/dataElements/email.js"
+        },
+        {
+            "id": "phoneNumber",
+            "displayName": "Phone Number",
+            "libPath": "src/lib/dataElements/phoneNumber.js"
+        },
+        {
+            "id": "externalId",
+            "displayName": "External ID",
+            "libPath": "src/lib/dataElements/externalId.js"
+        },
+        {
+            "id": "customParams",
+            "displayName": "Custom Parameters",
+            "libPath": "src/lib/dataElements/customParams.js"
+        }
+    ]
+}

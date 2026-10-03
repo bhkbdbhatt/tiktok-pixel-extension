@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TikTok Pixel Settings</title>
+    <script src="https://assets.adobedtm.com/extensions/v7/bridge.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 16px;
+            color: #2c2c2c;
+        }
+
+        .field-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-size: 13px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        select {
+            width: 100%;
+            max-width: 400px;
+            padding: 6px 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .checkbox-label {
+            font-weight: normal;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .description {
+            font-size: 11px;
+            color: #6e6e6e;
+            margin-top: 2px;
+        }
+
+        fieldset {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 12px;
+            max-width: 420px;
+            margin-bottom: 16px;
+        }
+
+        legend {
+            font-size: 12px;
+            font-weight: bold;
+            padding: 0 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="settingsForm">
+        <div class="field-group">
+            <label for="pixelId">TikTok Pixel ID *</label>
+            <input type="text" id="pixelId" placeholder="e.g. C1234567890ABCDEFG" required />
+            <div class="description">Your TikTok Pixel ID from Event Manager.</div>
+        </div>
+
+        <div class="field-group">
+            <label class="checkbox-label">
+                <input type="checkbox" id="autoPageView" checked />
+                Auto-fire PageView on library load
+            </label>
+        </div>
+
+        <div class="field-group">
+            <label for="content_type">Default Content Type</label>
+            <select id="content_type">
+                <option value="product">product</option>
+                <option value="other">other</option>
+            </select>
+        </div>
+
+        <fieldset>
+            <legend>TikTok Events API (Server-Side)</legend>
+            <div class="field-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="eventsApiEnabled" />
+                    Enable Events API
+                </label>
+            </div>
+
+            <div class="field-group">
+                <label for="eventsApiAccessToken">Access Token</label>
+                <input type="password" id="eventsApiAccessToken" placeholder="Access Token from TikTok Ads Manager" />
+            </div>
+
+            <div class="field-group">
+                <label for="eventsApiEndpoint">Endpoint Override</label>
+                <input type="text" id="eventsApiEndpoint"
+                    value="https://business-api.tiktok.com/open_api/v1.3/pixel/track/" />
+            </div>
+        </fieldset>
+
+        <div class="field-group">
+            <label class="checkbox-label">
+                <input type="checkbox" id="debugMode" />
+                Enable Console Debugging & ttq.debug()
+            </label>
+        </div>
+    </form>
+
+    <script>
+        window.extensionBridge.register({
+            init: function (info) {
+                if (info.settings) {
+                    document.getElementById('pixelId').value = info.settings.pixelId || '';
+                    document.getElementById('autoPageView').checked = info.settings.autoPageView !== false;
+                    document.getElementById('content_type').value = info.settings.content_type || 'product';
+                    document.getElementById('eventsApiEnabled').checked = !!info.settings.eventsApiEnabled;
+                    document.getElementById('eventsApiAccessToken').value = info.settings.eventsApiAccessToken || '';
+                    document.getElementById('eventsApiEndpoint').value = info.settings.eventsApiEndpoint || 'https://business-api.tiktok.com/open_api/v1.3/pixel/track/';
+                    document.getElementById('debugMode').checked = !!info.settings.debugMode;
+                }
+            },
+            getSettings: function () {
+                return {
+                    pixelId: document.getElementById('pixelId').value.trim(),
+                    autoPageView: document.getElementById('autoPageView').checked,
+                    content_type: document.getElementById('content_type').value,
+                    eventsApiEnabled: document.getElementById('eventsApiEnabled').checked,
+                    eventsApiAccessToken: document.getElementById('eventsApiAccessToken').value.trim(),
+                    eventsApiEndpoint: document.getElementById('eventsApiEndpoint').value.trim(),
+                    debugMode: document.getElementById('debugMode').checked
+                };
+            },
+            validate: function () {
+                var pixelId = document.getElementById('pixelId').value.trim();
+                return pixelId.length > 0;
+            }
+        });
+    </script>
+</body>
+
+</html>
